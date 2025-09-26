@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+    <%- include("layouts/head") %>
+</head>
+
+<body>
+    <%- include("./layouts/nav") %>
+        <% if(locals.error ){%>
+            <div class="alert alert-danger mt-2 mx-2" role="alert">
+                <%=locals.error %>
+            </div>
+        <% } %>
+        <div class="container mt-4">
+            <form action="/user/signin" method="post" class="row">
+                <div class="col-md-4 mb-3 ">
+                    <div class="form-floating mb-3 mt-3">
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                        <label for="exampleInputEmail1" class="">Email address</label>
+                    </div>
+                </div>
+                <div class="col-md-8"></div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                    </div>
+                </div>
+                <div class="col-md-8"></div>
+                <div class="col-md-4 mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <div class="col-md-8"></div>
+                <div class="col-md-4 text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Singn Up</button>
+                </div>
+            </form>
+        </div>
+        <%- include("layouts/scripts") %>
+</body>
+
+</html>

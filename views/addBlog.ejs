@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Blog</title>
+    <%- include("./layouts/head") %>
+</head>
+
+<body class="">
+    <%- include("./layouts/nav") %>
+        <div class="mt-3 px-5">
+            <% if(locals.error ){%>
+                <div class="alert alert-danger mt-2 mx-2" role="alert">
+                    <%=locals.error %>
+                </div>
+                <% } %>
+                    <form action="/blog" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Image</label>
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="inputGroupFile02" name="image">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title"
+                                aria-describedby="title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="body" class="form-label">Body</label>
+                            <textarea class="form-control" placeholder="Description" id="body" name="body"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <input class="btn btn-primary" type="submit" value="Submit">
+                        </div>
+                    </form>
+
+        </div>
+        <%- include("./layouts/scripts") %>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <%- include("./layouts/head") %>
+</head>
+
+<body class="">
+    <%- include("./layouts/nav") %>
+        <% if(locals.error){%>
+            <div class="alert alert-danger mt-2 mx-2" role="alert">
+                <%= locals.error  %>
+            </div>
+        <% }else{ %>
+
+                name: <%=locals.data.title %> 
+                <br>
+                desc:<%=locals.data.body %>
+                <br>
+                <img style="width: 300px;height: 300px;" src="/uploads/<%=locals.data.coverImageUrl%>" alt="">
+
+            <%} %>
+
+        <%- include("./layouts/scripts") %>
+</body>
+
+</html>

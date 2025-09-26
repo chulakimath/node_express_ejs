@@ -46,6 +46,23 @@ Schema.pre("save", async function (next) {
     user.password = hashedPasswod;
     next();
 });
+Schema.static("findByCredentials", async function (email, password) {
+    try {
+        const user = await this.findOne({ email });
+        if (!user) {
+            return 0;
+        }
+        const salt = user.salt;
+        const hashedPassword = createHmac("sha256", salt).update(password).digest("hex");
+        if (hashedPassword == user.password) {
+            return user;
+        }
+        return 0;
+    } catch (error) {
+        console.log(error);
+        return 0;
+    }
+});
 
-const userModel=new mongoose.model("User", Schema);
+const userModel = new mongoose.model("User", Schema);
 export default userModel;
