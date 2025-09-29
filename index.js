@@ -2,11 +2,12 @@ import express from "express";
 import dontenv from "dotenv";
 import path from "path";
 import userRouter from "./routes/userRoute.js";
-import StaticRouter from"./routes/staticRouter.js";
+import StaticRouter from "./routes/staticRouter.js";
 import BolgRoute from "./routes/blogRoute.js";
 import { mongoConnection } from "./services/mongoService.js";
 import cookieParser from "cookie-parser";
 import { isUserAuthenticated } from "./middleware/authMiddleware.js";
+import { getBlogs } from "./controllers/blogController.js";
 dontenv.config();
 const app = express();
 const PORT = process.env.PORT;
@@ -19,16 +20,17 @@ app.use(express.static(path.resolve("./public")));
 app.use(cookieParser());
 app.use(isUserAuthenticated("_token"));
 app.use(express.static('public'));
-app.get("/", (req, res) => {
-    
-    res.render("home", {
+app.use("/user", userRouter);
+app.use("/blog", BolgRoute);
+app.use("/static", StaticRouter)
+
+app.get("/", async (req, res) => {
+    const blogs = await getBlogs();
+    return res.render("home", {
         user: req.user || null,
-        // profileImageUrl:req.cookies.profileImageUrl
+        blogs: blogs || []
     });
 })
-app.use("/user", userRouter);
-app.use("/blog",BolgRoute);
-app.use("/static",StaticRouter)
 mongoConnection("blogApp").then(() => {
     console.log("DB Connection Extablished");
     app.listen(PORT, () => {

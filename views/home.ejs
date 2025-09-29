@@ -8,12 +8,38 @@
     <%- include("./layouts/head") %>
 </head>
 
-<body class="">
+<body style="overflow-x: hidden;" class="">
     <%- include("./layouts/nav") %>
-        <h1>Welocome</h1>
-        <p class="p-4 backgound-primary">hi</p>
+        <div class="row px-2">
+
+            <%if(locals.blogs&&locals,blogs.length){ locals.blogs.forEach(element=> { %>
+
+                <div class="col-md-3">
+                    <a href="/blog/post/<%=element._id%>" style="text-decoration: none;" class="text-dark">
+
+                        <div class="card mt-4" style="">
+                            <img style="height: 140px;" src="/uploads/<%=element.coverImageUrl %>" class="card-img-top"
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" style="height: 25px;overflow: hidden;text-overflow: ellipsis;">
+                                    <%=element.title%>
+                                </h5>
+                                <p class="card-text" style="height: 100px;overflow: hidden;text-overflow: ellipsis;">
+                                    <%=element.body%>
+                                </p>
+                                <div class="mb-4" style="height: 20px;">
+                                    <a href="/blog/post/<%=element._id%>" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <% }); }%>
+        </div>
 
         <%- include("./layouts/scripts") %>
 </body>
+
 
 </html>
